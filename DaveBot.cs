@@ -30,7 +30,36 @@ namespace DaveBot
                 return new OkObjectResult(new {challenge = challengeObj["challenge"]});
             }
 
+            var message = JsonConvert.DeserializeObject<Message>(requestBody);
+
             return new OkResult();
         }
+    }
+
+    public class Message
+    {
+        public Event Event {get;set;}
+    }
+
+    public class Event
+    {
+        public string User {get;set;}
+        public string Type {get;set;}
+        public Block[] Blocks {get;set;}
+    }
+
+    public class Block
+    {
+        public Element[] Elements {get;set;}
+        
+    }
+
+    public class Element
+    {
+        public Element[] Elements {get;set;}
+        public string Type {get;set;}
+        public string Text {get;set;}
+        [JsonProperty("user_id")]
+        public string UserId {get;set;}
     }
 }
